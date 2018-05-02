@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var mongoose = require('mongoose');
+var config = require('./_config');
 
 // *** routes *** //
 var routes = require('./routes/index.js');
@@ -14,11 +15,11 @@ var routes = require('./routes/index.js');
 var app = express();
 
 // *** mongoose *** ///
-mongoose.connect('mongodb://localhost/node-testing', function(err, res) {
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
   if(err) {
     console.log('Error connecting to the database. ' + err);
   } else {
-    console.log('Connected to Database!');
+    console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
   }
 });
 
